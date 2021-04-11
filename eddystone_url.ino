@@ -12,7 +12,7 @@
  any redistribution
 *********************************************************************/
 #include <bluefruit.h>
-
+#define VBATPIN A6
 #define URL   "https://www.adafruit.com"
 
 // Create an EddyStone URL with rssi at 0m = -40 and URL as defined above
@@ -68,5 +68,11 @@ void loop()
   // Toggle both LEDs every second
   digitalToggle(LED_RED);
   delay(1000);
+ 
+ // Check battery level
+float measuredvbat = analogRead(VBATPIN);
+measuredvbat *= 2;    // values is divided by 2, so multiply back
+measuredvbat *= 3.3;  // Multiply by 3.3V, our reference voltage
+measuredvbat /= 1024; // convert to voltage
 }
 
